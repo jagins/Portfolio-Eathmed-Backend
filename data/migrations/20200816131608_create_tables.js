@@ -11,7 +11,7 @@ exports.up = function(knex) {
     {
         table.increments();
         table.string('product_name');
-        table.integer('price');
+        table.float('price');
         table.string('product_type');
         table.float('thca');
         table.float('cbd');
