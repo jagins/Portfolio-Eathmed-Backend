@@ -17,8 +17,8 @@ exports.up = function(knex) {
         table.float('cbd');
         table.float('size');
         table.string('strain_type');
-        table.string('image');
-        table.string('description');
+        table.text('image');
+        table.text('description');
         table.integer('company_id')
             .references('id')
             .inTable('companies')
