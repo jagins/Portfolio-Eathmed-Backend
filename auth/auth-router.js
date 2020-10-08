@@ -7,15 +7,14 @@ router.post('/register', (req, res) => {
     let user = req.body;
     const hashedPassword = bcrypt.hashSync(user.password, 10);
     user.password = hashedPassword;
+    
     Users.add(user)
     .then(newUser => {
-        res.status(201).json({
-            message: 'User has been created',
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            phoneNumber: user.phoneNumber
-        });
+       Users.findBy(user.email).first()
+       .then(foundUser => {
+           res.status(201).json({message: 'User has been created', token: createToken(foundUser)})
+       })
+       .catch(err => res.status(500).json({error: 'Could not find the newly created user in the DB'}))
     })
     .catch(err => res.status(500).json('Could not register the user'))
 })
