@@ -11,13 +11,10 @@ router.post('/register', (req, res) => {
     .then(newUser => {
         res.status(201).json({
             message: 'User has been created',
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            phoneNumber: user.phoneNumber
+            token: createToken(user)
         });
     })
-    .catch(err => res.status(500).json('Could not register the user'))
+    .catch(err => res.status(500).json(err))
 })
 
 router.post('/login', (req, res) => {
